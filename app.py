@@ -44,7 +44,7 @@ from datetime import datetime
 
 @app.route('/')
 def index():
-    today = datetime.now().strftime('%Y-%m-%d')
+    today = datetime.now().strftime("%Y-%m-%d")
     return render_template('index.html', today=today)cp /storage/emulated/0/Download/app.py .cp /storage/emulated/0/Download/app.py .cp /storage/emulated/0/Download/app.py .
 
 @app.route('/search', methods=['POST'])
