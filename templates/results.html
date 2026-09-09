@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results</title>
+    <style>
+        body { font-family: sans-serif; background-color: #121212; margin: 0; color: white; }
+        .header { background-color: #5C0632; color: white; padding: 20px; text-align: center; }
+        .container { max-width: 700px; margin: 20px auto; padding: 0 15px; }
+        .flight-card { background: #1e1e1e; border-radius: 8px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; padding: 20px; }
+        .flight-info { display: flex; gap: 20px; align-items: center; justify-content: center; }
+        .flight-number { font-size: 14px; color: #5C0632; font-weight: bold; margin-bottom: 5px; }
+        .time { font-size: 24px; font-weight: bold; }
+        .airport { font-size: 14px; color: #aaa; }
+        .arrow { color: #5C0632; font-size: 20px; }
+        .price-section { text-align: right; }
+        .price { font-size: 22px; color: #5C0632; font-weight: bold; }
+        .book-btn { background-color: #5C0632; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; font-size: 14px; text-decoration: none; display: inline-block; }
+        .book-btn:hover { background-color: #4a0528; }
+        .back-btn { display: block; text-align: center; margin-top: 20px; color: #5C0632; text-decoration: none; font-weight: bold; }
+        .no-flights { text-align: center; background: #1e1e1e; padding: 40px; border-radius: 8px; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Smart Flights</h1>
+        <p>Flight results: {{ origin }} to {{ destination }}</p>
+    </div>
+
+    <div class="container">
+        {% if flights %}
+            {% for flight in flights %}
+                <div class="flight-card">
+                    <div class="flight-info">
+                        <div>
+                            <div class="flight-number">{{ flight.flight_number }}</div>
+                            <div class="time">{{ flight.departure_time }}</div>
+                            <div class="airport">{{ flight.origin }}</div>
+                        </div>
+                        <div class="arrow">✈️</div>     
+                        <div>
+                            <div class="time">{{ flight.arrival_time }}</div>
+                            <div class="airport">{{ flight.destination }}</div>
+                        </div>
+                    </div>
+                    
+                    <div class="price-section">
+                    <div class="price">${{ flight.price * passengers }}</div>
+                        <a href="/book/{{ flight.id }}" class="book-btn">Book Now</a>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="no-flights">
+                <h3>No flights found for this route!</h3>
+            </div>
+        {% endif %}
+
+        <a href="/" class="back-btn">← Back to Search</a>
+    </div>
+</body>
+</html>
